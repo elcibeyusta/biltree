@@ -1,0 +1,176 @@
+{
+  "common": {
+    "appName": "Bilkent Ağaç",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "admin": "Admin",
+    "loading": "Yükleniyor...",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "submit": "Gönder",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Önceki",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "close": "Kapat"
+  },
+  "landing": {
+    "title": "BILKENT AĞAÇ",
+    "titleLine1": "BILKENT",
+    "titleLine2": "AĞAÇ",
+    "subtitle": "2026'ya girerken bir Bilkentliyle hediye değiş-tokuşu yap!",
+    "registeredCount": "Kayıtlı Bilkentli Sayısı",
+    "howItWorks": "Nasıl Çalışır",
+    "step1": "Kayıt ve Doğrulama",
+    "step1Desc": "Bilkent öğrenci e-posta adresinizle (@ug.bilkent.edu.tr, @cs.bilkent.edu.tr vb.) kayıt olun. E-posta adresinize gönderilen doğrulama linkine tıklayarak hesabınızı aktifleştirin.",
+    "step2": "Profil Oluşturma",
+    "step2Desc": "Profilinizi tamamlayın: bölüm, öğrenim seviyesi ve ilgi alanlarınızı belirtin. Bu bilgiler eşleştiğiniz kişinin size uygun bir hediye seçmesine yardımcı olacak.",
+    "step3": "Otomatik Eşleşme",
+    "step3Desc": "Sistemimiz sizi algoritma ile bir Bilkentliyle eşleştirecek. Eşleşme sonucunda eşleştiğiniz kişinin ilgi alanlarını görecek, tam isim gizli kalacak (sadece baş harfler gösterilir).",
+    "step4": "Buluşma Zamanı Belirleme",
+    "step4Desc": "Eşleştiğiniz kişiyle, kampüs içi belirlenen lokasyonda buluşmak için 3 farklı gün ve saat önerin. Ortak bir zaman belirleyip buluşacaksınız.",
+    "step5": "Hediye Hazırlığı ve Teslim",
+    "step5Desc": "Belirlenen tarih ve lokasyonda buluşup hediyenizi teslim edin. Bütçe: 200-500 TL arası. Bu bir sürpriz olmalı!",
+    "features": {
+      "randomMatching": "Rastgele Eşleşme",
+      "randomMatchingDesc": "Adil ve rastgele eşleştirme algoritması",
+      "anonymity": "Anonimlik",
+      "anonymityDesc": "Buluşmaya kadar sadece baş harfler görünür",
+      "onCampus": "Kampüste Buluşma",
+      "onCampusDesc": "Kampüste güvenli buluşma noktaları"
+    },
+    "importantNotes": "Önemli Notlar",
+    "notes": {
+      "privacy": {
+        "title": "Gizlilik",
+        "desc": "Kime hediye aldığın sadece sen bileceksin. Eşleştiğin kişi de senin kim olduğunu bilmeyecek - bu bir sürpriz!"
+      },
+      "timing": {
+        "title": "Zamanlama",
+        "desc": "Eşleşme sonrası belirlenen tarih ve lokasyonda buluşup hediyeleri değiş-tokuş edeceksiniz. Randevunu kaçırma!"
+      },
+      "giftSelection": {
+        "title": "Hediye Seçimi",
+        "desc": "İlgi alanlarına göre düşünceli bir hediye seç. Bütçe: 200-500 TL arası. Yaratıcı ol!"
+      },
+      "fun": {
+        "title": "Eğlence",
+        "desc": "Bu bir yılbaşı kutlaması! Eğlen, yeni arkadaşlıklar kur ve yılbaşı ruhunu yaşa!"
+      }
+    }
+  },
+  "countdown": {
+    "title": "Kayıt İçin Son",
+    "days": "GÜN",
+    "hours": "SAAT",
+    "minutes": "DAKİKA",
+    "seconds": "SANİYE"
+  },
+  "auth": {
+    "email": "E-posta",
+    "password": "Şifre",
+    "passwordConfirm": "Şifre Tekrar",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "forgotPassword": "Şifremi Unuttum?",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "register": "Kayıt Ol",
+    "loginTitle": "Giriş Yap",
+    "registerTitle": "Kayıt Ol",
+    "verifyEmail": "E-postanızı Doğrulayın",
+    "verifyEmailMessage": "Lütfen e-postanızı kontrol edin ve doğrulama bağlantısına tıklayın.",
+    "verifyEmailSuccess": "E-posta başarıyla doğrulandı! Profile yönlendiriliyorsunuz...",
+    "verifyEmailError": "Doğrulama başarısız. Lütfen tekrar deneyin."
+  },
+  "profile": {
+    "title": "Profiliniz",
+    "initials": "Baş Harfler",
+    "department": "Bölüm",
+    "studyLevel": "Öğrenim Seviyesi",
+    "aboutMe": "Hakkımda / İlgi Alanları",
+    "aboutMePlaceholder": "Kendiniz ve ilgi alanlarınız hakkında bilgi verin (maksimum 500 karakter)",
+    "interests": "İlgi Alanı Etiketleri",
+    "updateSuccess": "Profil başarıyla güncellendi!",
+    "updateError": "Profil güncellenemedi."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "yourMatch": "Eşleşmeniz",
+    "noMatch": "Henüz eşleşme bulunamadı. Kayıtlar kapandıktan sonra eşleştirme başlayacak.",
+    "partnerInitials": "Baş Harfler",
+    "partnerDepartment": "Bölüm",
+    "partnerStudyLevel": "Öğrenim Seviyesi",
+    "partnerAbout": "Hakkında",
+    "partnerInterests": "İlgi Alanları",
+    "scheduleMeeting": "Buluşma Planla",
+    "quickLinks": "Hızlı Bağlantılar",
+    "updateProfile": "Profili Güncelle",
+    "meetingSchedule": "Buluşma Takvimi"
+  },
+  "meeting": {
+    "title": "Buluşma Planlama",
+    "noMeeting": "Aktif buluşma bulunamadı. Lütfen eşleştiğinizden emin olun.",
+    "confirmed": "Buluşma Onaylandı!",
+    "date": "Tarih",
+    "location": "Konum",
+    "notConfirmed": "Buluşma henüz onaylanmadı. Lütfen zaman dilimleri önerin veya partnerinizin önerisini onaylayın.",
+    "proposedSlots": "Önerilen Zaman Dilimleri",
+    "noSlots": "Henüz zaman dilimi önerilmedi.",
+    "confirm": "Onayla"
+  },
+  "admin": {
+    "title": "Admin Paneli",
+    "stats": {
+      "totalUsers": "Toplam Kullanıcı",
+      "verifiedUsers": "Doğrulanmış Kullanıcı",
+      "completedProfiles": "Tamamlanmış Profil",
+      "pendingMatches": "Bekleyen Eşleşme",
+      "activeMatches": "Aktif Eşleşme",
+      "confirmedMeetings": "Onaylanmış Buluşma",
+      "giftsExchanged": "Hediye Değişimi"
+    },
+    "runMatching": "Eşleştirme Algoritmasını Çalıştır",
+    "runMatchingConfirm": "Eşleştirmeyi çalıştırmak istediğinizden emin misiniz? Bu işlem mevcut eşleşmeleri silip yenilerini oluşturacaktır.",
+    "runMatchingSuccess": "Eşleştirme tamamlandı! {{count}} eşleşme oluşturuldu.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "users": "Kullanıcılar",
+      "matches": "Eşleşmeler",
+      "config": "Yapılandırma"
+    },
+    "users": {
+      "searchPlaceholder": "Kullanıcı ara...",
+      "email": "E-posta",
+      "name": "İsim",
+      "verified": "Doğrulandı",
+      "created": "Oluşturulma"
+    },
+    "matches": {
+      "id": "ID",
+      "userA": "Kullanıcı A",
+      "userB": "Kullanıcı B",
+      "userC": "Kullanıcı C",
+      "status": "Durum",
+      "created": "Oluşturulma",
+      "noMatches": "Eşleşme bulunamadı"
+    },
+    "config": {
+      "title": "Etkinlik Yapılandırması",
+      "registrationOpen": "Kayıt Açılış",
+      "registrationClose": "Kayıt Kapanış",
+      "matchingStartDate": "Eşleştirme Başlangıç Tarihi",
+      "minBudget": "Min Bütçe (TL)",
+      "maxBudget": "Max Bütçe (TL)",
+      "allowedDomains": "İzin Verilen E-posta Alanları (virgülle ayrılmış)",
+      "allowedDomainsPlaceholder": "ug.bilkent.edu.tr, cs.bilkent.edu.tr",
+      "isActive": "Etkinlik Aktif",
+      "updateSuccess": "Yapılandırma başarıyla güncellendi!"
+    }
+  }
+}
+

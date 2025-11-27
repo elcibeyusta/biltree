@@ -1,0 +1,176 @@
+{
+  "common": {
+    "appName": "Bilkent Secret Gifts",
+    "login": "Log In",
+    "register": "Sign Up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "admin": "Admin",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "close": "Close"
+  },
+  "landing": {
+    "title": "BILKENT SECRET GIFTS",
+    "titleLine1": "BILKENT",
+    "titleLine2": "AĞAÇ",
+    "subtitle": "Match with a random Bilkent student and exchange a surprise gift on campus as we enter the new year",
+    "registeredCount": "Registered Participants",
+    "howItWorks": "How It Works",
+    "step1": "Registration and Verification",
+    "step1Desc": "Sign up with your Bilkent student email address (@ug.bilkent.edu.tr, @cs.bilkent.edu.tr, etc.). Click the verification link sent to your email to activate your account.",
+    "step2": "Profile Creation",
+    "step2Desc": "Complete your profile: specify your department, study level, and interests. This information will help your matched person choose an appropriate gift for you.",
+    "step3": "Automatic Matching",
+    "step3Desc": "Our system will match you with a Bilkent student using an algorithm. After matching, you'll see your match's interests, but the full name will remain hidden (only initials are shown).",
+    "step4": "Meeting Time Scheduling",
+    "step4Desc": "Propose 3 different days and times to meet your match at the designated on-campus location. You'll agree on a common time and meet up.",
+    "step5": "Gift Preparation and Delivery",
+    "step5Desc": "Meet at the determined date and location to deliver your gift. Budget: 200-500 TL. This should be a surprise!",
+    "features": {
+      "randomMatching": "Random Matching",
+      "randomMatchingDesc": "Fair and random pairing algorithm",
+      "anonymity": "Anonymity",
+      "anonymityDesc": "Only initials visible until meeting",
+      "onCampus": "On-Campus Exchange",
+      "onCampusDesc": "Safe meeting locations on campus"
+    },
+    "importantNotes": "Important Notes",
+    "notes": {
+      "privacy": {
+        "title": "Privacy",
+        "desc": "Only you will know who you're giving a gift to. Your match won't know who you are either - it's a surprise!"
+      },
+      "timing": {
+        "title": "Timing",
+        "desc": "After matching, meet at the determined date and location to exchange gifts. Don't miss your appointment!"
+      },
+      "giftSelection": {
+        "title": "Gift Selection",
+        "desc": "Choose a thoughtful gift based on interests. Budget: 200-500 TL. Be creative!"
+      },
+      "fun": {
+        "title": "Fun",
+        "desc": "This is a New Year celebration! Have fun, make new friendships, and enjoy the New Year spirit!"
+      }
+    }
+  },
+  "countdown": {
+    "title": "Last for Registration",
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "register": "Register",
+    "loginTitle": "Log In",
+    "registerTitle": "Register",
+    "verifyEmail": "Verify Your Email",
+    "verifyEmailMessage": "Please check your email for the verification link.",
+    "verifyEmailSuccess": "Email verified successfully! Redirecting to profile...",
+    "verifyEmailError": "Verification failed. Please try again."
+  },
+  "profile": {
+    "title": "Your Profile",
+    "initials": "Initials",
+    "department": "Department",
+    "studyLevel": "Study Level",
+    "aboutMe": "About Me / Interests",
+    "aboutMePlaceholder": "Tell us about yourself and your interests (max 500 characters)",
+    "interests": "Interest Tags",
+    "updateSuccess": "Profile updated successfully!",
+    "updateError": "Failed to update profile."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "yourMatch": "Your Match",
+    "noMatch": "No match found yet. Matching will begin after registration closes.",
+    "partnerInitials": "Initials",
+    "partnerDepartment": "Department",
+    "partnerStudyLevel": "Study Level",
+    "partnerAbout": "About",
+    "partnerInterests": "Interests",
+    "scheduleMeeting": "Schedule Meeting",
+    "quickLinks": "Quick Links",
+    "updateProfile": "Update Profile",
+    "meetingSchedule": "Meeting Schedule"
+  },
+  "meeting": {
+    "title": "Meeting Schedule",
+    "noMeeting": "No active meeting found. Please ensure you have been matched.",
+    "confirmed": "Meeting Confirmed!",
+    "date": "Date",
+    "location": "Location",
+    "notConfirmed": "Meeting not yet confirmed. Please propose time slots or confirm your partner's proposal.",
+    "proposedSlots": "Proposed Slots",
+    "noSlots": "No slots proposed yet.",
+    "confirm": "Confirm"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "stats": {
+      "totalUsers": "Total Users",
+      "verifiedUsers": "Verified Users",
+      "completedProfiles": "Completed Profiles",
+      "pendingMatches": "Pending Matches",
+      "activeMatches": "Active Matches",
+      "confirmedMeetings": "Confirmed Meetings",
+      "giftsExchanged": "Gifts Exchanged"
+    },
+    "runMatching": "Run Matching Algorithm",
+    "runMatchingConfirm": "Are you sure you want to run matching? This will delete existing matches and create new ones.",
+    "runMatchingSuccess": "Matching completed! {{count}} matches created.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "matches": "Matches",
+      "config": "Configuration"
+    },
+    "users": {
+      "searchPlaceholder": "Search users...",
+      "email": "Email",
+      "name": "Name",
+      "verified": "Verified",
+      "created": "Created"
+    },
+    "matches": {
+      "id": "ID",
+      "userA": "User A",
+      "userB": "User B",
+      "userC": "User C",
+      "status": "Status",
+      "created": "Created",
+      "noMatches": "No matches found"
+    },
+    "config": {
+      "title": "Event Configuration",
+      "registrationOpen": "Registration Open",
+      "registrationClose": "Registration Close",
+      "matchingStartDate": "Matching Start Date",
+      "minBudget": "Min Budget (TL)",
+      "maxBudget": "Max Budget (TL)",
+      "allowedDomains": "Allowed Email Domains (comma-separated)",
+      "allowedDomainsPlaceholder": "ug.bilkent.edu.tr, cs.bilkent.edu.tr",
+      "isActive": "Event is Active",
+      "updateSuccess": "Configuration updated successfully!"
+    }
+  }
+}
+
