@@ -22,6 +22,10 @@ export interface Meeting {
   confirmed_slot: MeetingSlot | null;
   slots: MeetingSlot[];
   gift_exchanged: boolean;
+  match?: {
+    user_a?: { id: number };
+    user_b?: { id: number };
+  };
 }
 
 export const meetingService = {

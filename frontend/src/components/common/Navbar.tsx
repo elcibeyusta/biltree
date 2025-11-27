@@ -10,7 +10,6 @@ const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const isHome = location.pathname === ROUTES.HOME;
-  const isAdmin = location.pathname === ROUTES.ADMIN;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

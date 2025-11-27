@@ -44,7 +44,7 @@ const ProfilePage: React.FC = () => {
         department: formData.get('department') as string,
         study_level: formData.get('study_level') as string,
         about_text: formData.get('about_text') as string,
-        interest_ids: Array.from(formData.getAll('interests')).map(Number),
+        interests: Array.from(formData.getAll('interests')).map(Number) as any,
       });
       setProfile(updatedProfile);
       setMessage(t('profile.updateSuccess'));

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { meetingService, Meeting, Location } from '../services/meeting';
+import { meetingService, Meeting } from '../services/meeting';
 
 const MeetingPage: React.FC = () => {
   const [meeting, setMeeting] = useState<Meeting | null>(null);
-  const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
 
@@ -14,12 +13,8 @@ const MeetingPage: React.FC = () => {
 
   const loadData = async () => {
     try {
-      const [meetingData, locationsData] = await Promise.all([
-        meetingService.getMyMeeting(),
-        meetingService.getLocations(),
-      ]);
+      const meetingData = await meetingService.getMyMeeting();
       setMeeting(meetingData);
-      setLocations(locationsData);
     } catch (err: any) {
       if (err.response?.status !== 404) {
         console.error('Error loading meeting:', err);
