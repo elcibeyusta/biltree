@@ -157,20 +157,20 @@ const AdminPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-100 text-slate-900">
       {/* Desktop Only Notice */}
       <div className="hidden lg:block">
-        <div className="container mx-auto px-6 py-8">
-          <h1 className="text-3xl font-bold mb-6">{t('admin.title')}</h1>
+        <div className="container mx-auto px-6 py-8 text-slate-900">
+          <h1 className="text-3xl font-bold mb-6 text-bilkent-blue">{t('admin.title')}</h1>
 
           {message && (
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            <div className="bg-green-50/90 border border-green-200 text-green-800 px-4 py-3 rounded mb-4 shadow-sm">
               {message}
             </div>
           )}
 
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <div className="bg-red-50/90 border border-red-200 text-red-800 px-4 py-3 rounded mb-4 shadow-sm">
               {error}
             </div>
           )}
@@ -252,7 +252,7 @@ const AdminPage: React.FC = () => {
                   placeholder={t('admin.users.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-slate-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/50 focus:border-bilkent-blue transition"
                 />
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -381,7 +381,8 @@ const AdminPage: React.FC = () => {
                           value={editFormData.user_a}
                           onChange={(e) => setEditFormData({...editFormData, user_a: parseInt(e.target.value)})}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        >
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                      >
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
                               {user.email} ({user.first_name} {user.last_name})
@@ -395,7 +396,8 @@ const AdminPage: React.FC = () => {
                           value={editFormData.user_b}
                           onChange={(e) => setEditFormData({...editFormData, user_b: parseInt(e.target.value)})}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        >
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                      >
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
                               {user.email} ({user.first_name} {user.last_name})
@@ -409,7 +411,8 @@ const AdminPage: React.FC = () => {
                           value={editFormData.user_c || ''}
                           onChange={(e) => setEditFormData({...editFormData, user_c: e.target.value ? parseInt(e.target.value) : undefined})}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        >
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                      >
                           <option value="">None</option>
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
@@ -452,7 +455,7 @@ const AdminPage: React.FC = () => {
                         type="datetime-local"
                         name="registration_open"
                         defaultValue={config.registration_open ? new Date(config.registration_open).toISOString().slice(0, 16) : ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         required
                       />
                     </div>
@@ -462,7 +465,7 @@ const AdminPage: React.FC = () => {
                         type="datetime-local"
                         name="registration_close"
                         defaultValue={config.registration_close ? new Date(config.registration_close).toISOString().slice(0, 16) : ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         required
                       />
                     </div>
@@ -472,7 +475,7 @@ const AdminPage: React.FC = () => {
                         type="datetime-local"
                         name="matching_start_date"
                         defaultValue={config.matching_start_date ? new Date(config.matching_start_date).toISOString().slice(0, 16) : ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         required
                       />
                     </div>
@@ -483,7 +486,7 @@ const AdminPage: React.FC = () => {
                         step="0.01"
                         name="min_budget"
                         defaultValue={config.min_budget || ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         required
                       />
                     </div>
@@ -494,7 +497,7 @@ const AdminPage: React.FC = () => {
                         step="0.01"
                         name="max_budget"
                         defaultValue={config.max_budget || ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         required
                       />
                     </div>
@@ -504,7 +507,7 @@ const AdminPage: React.FC = () => {
                         type="text"
                         name="allowed_email_domains"
                         defaultValue={config?.allowed_email_domains ? config.allowed_email_domains.join(', ') : ''}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
                         placeholder={t('admin.config.allowedDomainsPlaceholder')}
                         required
                       />

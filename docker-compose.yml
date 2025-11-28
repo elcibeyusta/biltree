@@ -62,6 +62,8 @@ services:
 
 volumes:
   postgres_data:
+    external: true
+    name: bilsanta_postgres_data
   static_volume:
   media_volume:
 
