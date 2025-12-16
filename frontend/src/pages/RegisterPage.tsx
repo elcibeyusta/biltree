@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { authService } from '../services/auth';
-import { ROUTES } from '../utils/constants';
+import { ROUTES, DEPARTMENTS, STUDY_LEVELS } from '../utils/constants';
 import { validateBilkentEmail, validatePassword } from '../utils/validation';
 
 const RegisterPage: React.FC = () => {
@@ -12,13 +12,16 @@ const RegisterPage: React.FC = () => {
     last_name: '',
     password: '',
     password_confirm: '',
+    department: '',
+    study_level: '',
+    about_text: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -42,13 +45,18 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
+    if (!formData.department || !formData.study_level) {
+      setError('Please fill out all required profile fields.');
+      return;
+    }
+
     setLoading(true);
 
     try {
       await authService.register(formData);
       navigate(ROUTES.VERIFY_EMAIL, { state: { email: formData.email } });
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.message || err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -78,7 +86,7 @@ const RegisterPage: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               placeholder="ornek@bilkent.edu.tr"
             />
           </div>
@@ -94,7 +102,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.first_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               />
             </div>
             <div>
@@ -107,7 +115,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               />
             </div>
           </div>
@@ -122,7 +130,7 @@ const RegisterPage: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               placeholder="••••••••"
             />
           </div>
@@ -137,15 +145,76 @@ const RegisterPage: React.FC = () => {
               value={formData.password_confirm}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               placeholder="••••••••"
             />
+          </div>
+
+          {/* Profile Section */}
+          <div className="border-t border-white/10 pt-6 mt-6">
+            <h3 className="text-lg font-semibold text-christmas-green mb-4">{t('profile.title')}</h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-gray-300 text-sm font-medium mb-2 ml-1">
+                  {t('profile.department')} <span className="text-red-400">*</span>
+                </label>
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                >
+                  <option value="" className="bg-yildiz-dark">{t('profile.department')}</option>
+                  {DEPARTMENTS.map((dept) => (
+                    <option key={dept.value} value={dept.value} className="bg-yildiz-dark">
+                      {t(dept.labelKey)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-gray-300 text-sm font-medium mb-2 ml-1">
+                  {t('profile.studyLevel')} <span className="text-red-400">*</span>
+                </label>
+                <select
+                  name="study_level"
+                  value={formData.study_level}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                >
+                  <option value="" className="bg-yildiz-dark">{t('profile.studyLevel')}</option>
+                  {STUDY_LEVELS.map((level) => (
+                    <option key={level.value} value={level.value} className="bg-yildiz-dark">
+                      {t(level.labelKey)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-gray-300 text-sm font-medium mb-2 ml-1">
+                {t('profile.aboutMe')}
+              </label>
+              <textarea
+                name="about_text"
+                value={formData.about_text}
+                onChange={handleChange}
+                maxLength={500}
+                rows={4}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base resize-none"
+                placeholder={t('profile.aboutMePlaceholder')}
+              />
+            </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-yildiz-gold text-yildiz-dark font-bold py-3 sm:py-3.5 rounded-xl hover:bg-yellow-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-yildiz-gold/20 text-sm sm:text-base"
+            className="w-full bg-christmas-red text-white font-bold py-3 sm:py-3.5 rounded-xl hover:bg-red-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-red/40 text-sm sm:text-base"
           >
             {loading ? t('common.loading') : t('common.register')}
           </button>

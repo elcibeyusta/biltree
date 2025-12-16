@@ -73,15 +73,15 @@ const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-yildiz-gold text-yildiz-dark font-bold py-3 sm:py-3.5 rounded-xl hover:bg-yellow-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-yildiz-gold/20 text-sm sm:text-base"
+            className="w-full bg-christmas-green text-white font-bold py-3 sm:py-3.5 rounded-xl hover:bg-green-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-green/30 text-sm sm:text-base"
           >
             {loading ? t('common.loading') : t('common.login')}
           </button>
         </form>
 
         <div className="mt-4 sm:mt-6 text-center">
-          <Link to={ROUTES.REGISTER} className="text-gray-400 hover:text-yildiz-gold transition-colors duration-300 text-xs sm:text-sm">
-            {t('auth.noAccount')} <span className="font-semibold underline decoration-yildiz-gold/50 hover:decoration-yildiz-gold">{t('common.register')}</span>
+          <Link to={ROUTES.REGISTER} className="text-gray-400 hover:text-christmas-red transition-colors duration-300 text-xs sm:text-sm">
+            {t('auth.noAccount')} <span className="font-semibold underline decoration-christmas-red/50 hover:decoration-christmas-red">{t('common.register')}</span>
           </Link>
         </div>
       </div>

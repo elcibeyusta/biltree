@@ -4,8 +4,19 @@ Run with: docker compose exec backend python create_superuser.py
 """
 import os
 import secrets
+from pathlib import Path
+from dotenv import load_dotenv
 
 import django
+
+# Load .env file from project root
+BASE_DIR = Path(__file__).resolve().parent
+env_path = BASE_DIR.parent / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
+else:
+    # Also try loading from current directory
+    load_dotenv()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bilkent_secret_gifts.settings')
 django.setup()

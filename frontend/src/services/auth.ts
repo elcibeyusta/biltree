@@ -6,6 +6,9 @@ export interface RegisterData {
   last_name: string;
   password: string;
   password_confirm: string;
+  department: string;
+  study_level: string;
+  about_text?: string;
 }
 
 export interface LoginData {

@@ -8,20 +8,20 @@ export default {
     extend: {
       colors: {
         bilkent: {
-          blue: '#003366',
-          gold: '#FFD700',
+          blue: '#C41E3A', // Christmas red
+          gold: '#228B22', // Christmas green
         },
         yildiz: {
           dark: '#0a0a0a', // Very dark background
-          gold: '#FFD700', // Gold for text
-          red: '#DC2626', // Christmas red
-          green: '#16A34A', // Christmas green
+          gold: '#228B22', // Christmas green
+          red: '#C41E3A', // Christmas red
+          green: '#228B22', // Christmas green
           snow: '#F8FAFC', // Snow white
         },
         christmas: {
-          red: '#DC2626',
-          green: '#16A34A',
-          gold: '#FFD700',
+          red: '#C41E3A', // Vibrant Christmas red
+          green: '#228B22', // Forest green
+          gold: '#FFD700', // Gold accents
           dark: '#0a0a0a',
           snow: '#F8FAFC',
         }

@@ -11,6 +11,14 @@ const DashboardPage: React.FC = () => {
   const [match, setMatch] = useState<Match | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const translateDepartment = (deptCode: string) => {
+    return t(`departments.${deptCode}`) || deptCode;
+  };
+
+  const translateStudyLevel = (levelCode: string) => {
+    return t(`studyLevels.${levelCode}`) || levelCode;
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       loadMatch();
@@ -65,13 +73,13 @@ const DashboardPage: React.FC = () => {
                 <div>
                   <p className="text-sm sm:text-base text-gray-300 mb-1">
                     <strong className="text-yildiz-gold">{t('dashboard.partnerDepartment')}:</strong>{' '}
-                    <span className="text-white">{match.partner_profile.department}</span>
+                    <span className="text-white">{translateDepartment(match.partner_profile.department)}</span>
                   </p>
                 </div>
                 <div>
                   <p className="text-sm sm:text-base text-gray-300 mb-1">
                     <strong className="text-yildiz-gold">{t('dashboard.partnerStudyLevel')}:</strong>{' '}
-                    <span className="text-white">{match.partner_profile.study_level}</span>
+                    <span className="text-white">{translateStudyLevel(match.partner_profile.study_level)}</span>
                   </p>
                 </div>
                 {match.partner_profile.about_text && (
@@ -119,17 +127,17 @@ const DashboardPage: React.FC = () => {
         )}
 
         <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-xl p-4 sm:p-6">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-yildiz-gold">{t('dashboard.quickLinks')}</h2>
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-christmas-green">{t('dashboard.quickLinks')}</h2>
           <div className="flex flex-col gap-3">
             <Link
               to={ROUTES.PROFILE}
-              className="text-gray-300 hover:text-yildiz-gold transition-colors text-sm sm:text-base"
+              className="text-gray-300 hover:text-christmas-green transition-colors text-sm sm:text-base"
             >
               {t('dashboard.updateProfile')}
             </Link>
             <Link
               to={ROUTES.MEETING}
-              className="text-gray-300 hover:text-yildiz-gold transition-colors text-sm sm:text-base"
+              className="text-gray-300 hover:text-christmas-red transition-colors text-sm sm:text-base"
             >
               {t('dashboard.meetingSchedule')}
             </Link>

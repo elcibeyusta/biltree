@@ -26,7 +26,7 @@ const VerifyEmailPage: React.FC = () => {
       await authService.verifyEmail(token);
       setMessage(t('auth.verifyEmailSuccess'));
       setTimeout(() => {
-        navigate(ROUTES.PROFILE);
+        navigate(ROUTES.LOGIN);
       }, 2000);
     } catch (err: any) {
       setError(err.response?.data?.message || t('auth.verifyEmailError'));

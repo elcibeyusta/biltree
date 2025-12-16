@@ -161,7 +161,7 @@ const AdminPage: React.FC = () => {
       {/* Desktop Only Notice */}
       <div className="hidden lg:block">
         <div className="container mx-auto px-6 py-8 text-slate-900">
-          <h1 className="text-3xl font-bold mb-6 text-bilkent-blue">{t('admin.title')}</h1>
+          <h1 className="text-3xl font-bold mb-6 text-christmas-red">{t('admin.title')}</h1>
 
           {message && (
             <div className="bg-green-50/90 border border-green-200 text-green-800 px-4 py-3 rounded mb-4 shadow-sm">
@@ -184,7 +184,7 @@ const AdminPage: React.FC = () => {
                   onClick={() => setActiveTab(tab)}
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab
-                      ? 'border-bilkent-blue text-bilkent-blue'
+                      ? 'border-christmas-red text-christmas-red'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
@@ -200,7 +200,7 @@ const AdminPage: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('admin.stats.totalUsers')}</h3>
-                  <p className="text-3xl font-bold text-bilkent-blue">{stats.total_users}</p>
+                  <p className="text-3xl font-bold text-christmas-red">{stats.total_users}</p>
                 </div>
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('admin.stats.verifiedUsers')}</h3>
@@ -232,7 +232,7 @@ const AdminPage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">{t('admin.runMatching')}</h2>
                 <button
                   onClick={handleRunMatching}
-                  className="bg-bilkent-blue text-white px-6 py-2 rounded hover:bg-blue-800"
+                  className="bg-christmas-red text-white px-6 py-2 rounded hover:bg-red-600"
                 >
                   {t('admin.runMatching')}
                 </button>
@@ -380,9 +380,8 @@ const AdminPage: React.FC = () => {
                         <select
                           value={editFormData.user_a}
                           onChange={(e) => setEditFormData({...editFormData, user_a: parseInt(e.target.value)})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
-                      >
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                        >
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
                               {user.email} ({user.first_name} {user.last_name})
@@ -395,9 +394,8 @@ const AdminPage: React.FC = () => {
                         <select
                           value={editFormData.user_b}
                           onChange={(e) => setEditFormData({...editFormData, user_b: parseInt(e.target.value)})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
-                      >
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                        >
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
                               {user.email} ({user.first_name} {user.last_name})
@@ -410,9 +408,8 @@ const AdminPage: React.FC = () => {
                         <select
                           value={editFormData.user_c || ''}
                           onChange={(e) => setEditFormData({...editFormData, user_c: e.target.value ? parseInt(e.target.value) : undefined})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
-                      >
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-bilkent-blue/40 focus:border-bilkent-blue transition"
+                        >
                           <option value="">None</option>
                           {users.map(user => (
                             <option key={user.id} value={user.id}>
@@ -431,7 +428,7 @@ const AdminPage: React.FC = () => {
                       </button>
                       <button
                         onClick={handleSaveMatch}
-                        className="px-4 py-2 bg-bilkent-blue text-white rounded-md hover:bg-blue-800"
+                        className="px-4 py-2 bg-christmas-green text-white rounded-md hover:bg-green-600"
                       >
                         Save
                       </button>
@@ -526,7 +523,7 @@ const AdminPage: React.FC = () => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-bilkent-blue text-white px-6 py-2 rounded hover:bg-blue-800"
+                    className="bg-christmas-red text-white px-6 py-2 rounded hover:bg-red-600"
                   >
                     {t('common.save')}
                   </button>

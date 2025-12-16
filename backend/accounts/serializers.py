@@ -6,17 +6,24 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from .models import User
 from content.models import EventConfig
+from profiles.models import Profile
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    """Serializer for user registration."""
+    """Serializer for user registration with profile data."""
     
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password_confirm = serializers.CharField(write_only=True, required=True)
+    
+    # Profile fields
+    department = serializers.CharField(max_length=10, required=True)
+    study_level = serializers.CharField(max_length=5, required=True)
+    about_text = serializers.CharField(max_length=500, required=False, allow_blank=True)
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'password_confirm']
+        fields = ['email', 'first_name', 'last_name', 'password', 'password_confirm',
+                  'department', 'study_level', 'about_text']
         extra_kwargs = {
             'email': {'required': True},
             'first_name': {'required': True},
@@ -47,11 +54,33 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        """Create user and generate verification token."""
+        """Create user, profile, and generate verification token."""
+        # Extract profile data
+        department = validated_data.pop('department')
+        study_level = validated_data.pop('study_level')
+        about_text = validated_data.pop('about_text', '')
+        
+        # Create user
         validated_data.pop('password_confirm')
         password = validated_data.pop('password')
         user = User.objects.create_user(password=password, **validated_data)
         user.generate_verification_token()
+        
+        # Generate initials from first_name and last_name
+        first_initial = user.first_name[0].upper() if user.first_name else ''
+        last_initial = user.last_name[0].upper() if user.last_name else ''
+        initials = f'{first_initial}{last_initial}'
+        
+        # Create profile
+        Profile.objects.create(
+            user=user,
+            initials=initials,
+            department=department,
+            study_level=study_level,
+            about_text=about_text,
+            profile_completed=True  # Mark as completed since all fields are filled
+        )
+        
         return user
 
 
