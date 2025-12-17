@@ -2,17 +2,28 @@
 const rawApiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
 // Fix common mistake: http:localhost -> http://localhost
 export const API_BASE_URL = (() => {
-  if (rawApiUrl.startsWith('http://') || rawApiUrl.startsWith('https://')) {
-    return rawApiUrl;
-  }
+  let url = rawApiUrl;
+  
   // Fix missing // after http: or https:
-  if (rawApiUrl.startsWith('http:')) {
-    return rawApiUrl.replace(/^http:/, 'http://');
+  if (url.startsWith('http:')) {
+    url = url.replace(/^http:/, 'http://');
   }
-  if (rawApiUrl.startsWith('https:')) {
-    return rawApiUrl.replace(/^https:/, 'https://');
+  if (url.startsWith('https:')) {
+    url = url.replace(/^https:/, 'https://');
   }
-  return rawApiUrl;
+  
+  // Ensure URL doesn't start with http:// or https:// if it doesn't already
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    // If it's a relative URL, assume http://localhost
+    if (url.startsWith('/')) {
+      url = `http://localhost:8000${url}`;
+    } else {
+      url = `http://${url}`;
+    }
+  }
+  
+  // Remove trailing slash to avoid double-slash issues with axios
+  return url.replace(/\/+$/, '');
 })();
 
 export const ROUTES = {
