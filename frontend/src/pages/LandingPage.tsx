@@ -55,13 +55,13 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <section className="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 min-h-screen py-24 sm:py-28 md:py-32">
-        <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-bilkent-gold via-bilkent-gold to-bilkent-blue mb-4 sm:mb-6 tracking-wide sm:tracking-widest break-words leading-tight px-2" style={{ 
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-bilkent-gold via-bilkent-gold to-bilkent-blue mb-4 sm:mb-6 tracking-widest break-words leading-tight px-2" style={{ 
           textShadow: '0 0 10px rgba(255, 215, 0, 0.3)'
         }}>
           {t('landing.titleLine1')}<br />{t('landing.titleLine2')}
         </h1>
 
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-6 sm:mb-8 md:mb-12 max-w-3xl font-light leading-relaxed px-2 sm:px-4">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 sm:mb-12 md:mb-16 max-w-3xl font-light leading-relaxed px-2 sm:px-4">
           {t('landing.subtitle')}
         </p>
 
