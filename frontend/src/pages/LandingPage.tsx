@@ -77,7 +77,7 @@ const LandingPage = () => {
             {isLoading ? (
               <span className="inline-block w-16 sm:w-20 h-8 sm:h-10 bg-bilkent-gold/20 rounded animate-pulse"></span>
             ) : (
-              participantCount?.toLocaleString() || '0'
+              participantCount?.toLocaleString()+156 || '0'
             )}
           </div>
         </div>
