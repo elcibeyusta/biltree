@@ -86,7 +86,7 @@ const RegisterPage: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
               placeholder="ornek@bilkent.edu.tr"
             />
           </div>
@@ -102,7 +102,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.first_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
               />
             </div>
             <div>
@@ -115,7 +115,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ const RegisterPage: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
               placeholder="••••••••"
             />
           </div>
@@ -145,7 +145,7 @@ const RegisterPage: React.FC = () => {
               value={formData.password_confirm}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+              className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
               placeholder="••••••••"
             />
           </div>
@@ -164,7 +164,7 @@ const RegisterPage: React.FC = () => {
                   value={formData.department}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                  className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
                 >
                   <option value="" className="bg-yildiz-dark">{t('profile.department')}</option>
                   {DEPARTMENTS.map((dept) => (
@@ -183,7 +183,7 @@ const RegisterPage: React.FC = () => {
                   value={formData.study_level}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                  className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base"
                 >
                   <option value="" className="bg-yildiz-dark">{t('profile.studyLevel')}</option>
                   {STUDY_LEVELS.map((level) => (
@@ -205,7 +205,7 @@ const RegisterPage: React.FC = () => {
                 onChange={handleChange}
                 maxLength={500}
                 rows={4}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base resize-none"
+                className="w-full px-4 py-3.5 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-christmas-green/50 focus:border-transparent transition-all duration-300 text-base sm:text-base resize-none"
                 placeholder={t('profile.aboutMePlaceholder')}
               />
             </div>
@@ -214,7 +214,7 @@ const RegisterPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-christmas-red text-white font-bold py-3 sm:py-3.5 rounded-xl hover:bg-red-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-red/40 text-sm sm:text-base"
+            className="w-full bg-christmas-red text-white font-bold py-3.5 sm:py-3 rounded-xl hover:bg-red-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-red/40 text-base sm:text-base"
           >
             {loading ? t('common.loading') : t('common.register')}
           </button>

@@ -96,5 +96,9 @@ export const adminService = {
     const response = await api.post('/admin/matches/deploy/');
     return response.data;
   },
+
+  deleteUser: async (userId: number): Promise<void> => {
+    await api.delete(`/admin/users/${userId}/delete/`);
+  },
 };
 

@@ -88,6 +88,25 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const handleDeleteUser = async (userId: number) => {
+    const user = users.find(u => u.id === userId);
+    const userName = user ? `${user.first_name} ${user.last_name} (${user.email})` : `User #${userId}`;
+    
+    if (!confirm(`Are you sure you want to delete ${userName}? This will also delete their profile, matches, and meetings. This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      setMessage('');
+      setError('');
+      await adminService.deleteUser(userId);
+      setMessage('User deleted successfully.');
+      await loadData();
+    } catch (err: any) {
+      setError(err.response?.data?.error || err.response?.data?.message || 'Failed to delete user');
+    }
+  };
+
   const handleEditMatch = (match: Match) => {
     setEditingMatch(match);
     setEditFormData({
@@ -197,7 +216,7 @@ const AdminPage: React.FC = () => {
           {/* Dashboard Tab */}
           {activeTab === 'dashboard' && stats && (
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('admin.stats.totalUsers')}</h3>
                   <p className="text-3xl font-bold text-christmas-red">{stats.total_users}</p>
@@ -232,7 +251,7 @@ const AdminPage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">{t('admin.runMatching')}</h2>
                 <button
                   onClick={handleRunMatching}
-                  className="bg-christmas-red text-white px-6 py-2 rounded hover:bg-red-600"
+                  className="w-full sm:w-auto bg-christmas-red text-white px-4 sm:px-6 py-2.5 rounded hover:bg-red-600 text-sm sm:text-base"
                 >
                   {t('admin.runMatching')}
                 </button>
@@ -256,40 +275,52 @@ const AdminPage: React.FC = () => {
                 />
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.email')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.name')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.verified')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.created')}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredUsers.map((user) => (
-                      <tr key={user.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {user.first_name} {user.last_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {user.email_verified ? (
-                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                              Yes
-                            </span>
-                          ) : (
-                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                              No
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(user.created_at).toLocaleDateString()}
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.email')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.name')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.verified')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.created')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {filteredUsers.map((user) => (
+                        <tr key={user.id}>
+                          <td className="px-3 sm:px-6 py-4 text-sm text-gray-900 break-words">{user.email}</td>
+                          <td className="px-3 sm:px-6 py-4 text-sm text-gray-900">
+                            {user.first_name} {user.last_name}
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                            {user.email_verified ? (
+                              <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                Yes
+                              </span>
+                            ) : (
+                              <span className="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                No
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {new Date(user.created_at).toLocaleDateString()}
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm">
+                            <button
+                              onClick={() => handleDeleteUser(user.id)}
+                              className="text-red-600 hover:text-red-800 text-xs sm:text-sm px-2 py-1 sm:px-0 sm:py-0"
+                              title="Delete user"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
@@ -297,73 +328,77 @@ const AdminPage: React.FC = () => {
           {/* Matches Tab */}
           {activeTab === 'matches' && (
             <div>
-              <div className="mb-4 flex justify-between items-center">
-                <h2 className="text-xl font-semibold">Matches Management</h2>
+              <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h2 className="text-lg sm:text-xl font-semibold">Matches Management</h2>
                 {stats && stats.pending_matches > 0 && (
                   <button
                     onClick={handleDeployMatches}
-                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+                    className="w-full sm:w-auto bg-green-600 text-white px-4 sm:px-6 py-2.5 rounded hover:bg-green-700 text-sm sm:text-base"
                   >
                     Deploy All Pending ({stats.pending_matches})
                   </button>
                 )}
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.id')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userA')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userB')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userC')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.status')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.created')}</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {matches.map((match) => (
-                      <tr key={match.id} className={match.status === 'pending' ? 'bg-yellow-50' : ''}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{match.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{match.user_a_email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{match.user_b_email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {match.user_c_email || '-'}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                            match.status === 'active' ? 'bg-green-100 text-green-800' : 
-                            match.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {match.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(match.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          {match.status === 'pending' && (
-                            <button
-                              onClick={() => handleEditMatch(match)}
-                              className="text-blue-600 hover:text-blue-800 mr-2"
-                              title="Edit match"
-                            >
-                              Edit
-                            </button>
-                          )}
-                          <button
-                            onClick={() => handleDeleteMatch(match.id)}
-                            className="text-red-600 hover:text-red-800"
-                            title="Delete match"
-                          >
-                            Delete
-                          </button>
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.id')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userA')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userB')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.userC')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.status')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.matches.created')}</th>
+                        <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {matches.map((match) => (
+                        <tr key={match.id} className={match.status === 'pending' ? 'bg-yellow-50' : ''}>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">{match.id}</td>
+                          <td className="px-3 sm:px-6 py-4 text-sm text-gray-900 break-words">{match.user_a_email}</td>
+                          <td className="px-3 sm:px-6 py-4 text-sm text-gray-900 break-words">{match.user_b_email}</td>
+                          <td className="px-3 sm:px-6 py-4 text-sm text-gray-900 break-words">
+                            {match.user_c_email || '-'}
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                            <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                              match.status === 'active' ? 'bg-green-100 text-green-800' : 
+                              match.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {match.status}
+                            </span>
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {new Date(match.created_at).toLocaleDateString()}
+                          </td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm">
+                            <div className="flex flex-col sm:flex-row gap-2">
+                              {match.status === 'pending' && (
+                                <button
+                                  onClick={() => handleEditMatch(match)}
+                                  className="text-blue-600 hover:text-blue-800 text-xs sm:text-sm px-2 py-1 sm:px-0 sm:py-0"
+                                  title="Edit match"
+                                >
+                                  Edit
+                                </button>
+                              )}
+                              <button
+                                onClick={() => handleDeleteMatch(match.id)}
+                                className="text-red-600 hover:text-red-800 text-xs sm:text-sm px-2 py-1 sm:px-0 sm:py-0"
+                                title="Delete match"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
                 {matches.length === 0 && (
                   <div className="text-center py-8 text-gray-500">{t('admin.matches.noMatches')}</div>
                 )}
@@ -371,9 +406,9 @@ const AdminPage: React.FC = () => {
 
               {/* Edit Match Modal */}
               {editingMatch && editFormData && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                  <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
-                    <h3 className="text-xl font-bold mb-4">Edit Match #{editingMatch.id}</h3>
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+                  <div className="bg-white rounded-lg p-4 sm:p-6 max-w-2xl w-full my-4 max-h-[90vh] overflow-y-auto">
+                    <h3 className="text-lg sm:text-xl font-bold mb-4">Edit Match #{editingMatch.id}</h3>
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">User A</label>
@@ -419,16 +454,16 @@ const AdminPage: React.FC = () => {
                         </select>
                       </div>
                     </div>
-                    <div className="mt-6 flex justify-end space-x-3">
+                    <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
                       <button
                         onClick={handleCancelEdit}
-                        className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 text-sm sm:text-base"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={handleSaveMatch}
-                        className="px-4 py-2 bg-christmas-green text-white rounded-md hover:bg-green-600"
+                        className="w-full sm:w-auto px-4 py-2.5 bg-christmas-green text-white rounded-md hover:bg-green-600 text-sm sm:text-base"
                       >
                         Save
                       </button>
@@ -523,7 +558,7 @@ const AdminPage: React.FC = () => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-christmas-red text-white px-6 py-2 rounded hover:bg-red-600"
+                    className="w-full sm:w-auto bg-christmas-red text-white px-4 sm:px-6 py-2.5 rounded hover:bg-red-600 text-sm sm:text-base"
                   >
                     {t('common.save')}
                   </button>
@@ -534,15 +569,6 @@ const AdminPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Notice */}
-      <div className="lg:hidden min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center bg-white p-8 rounded-lg shadow-md max-w-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Desktop Only</h2>
-          <p className="text-gray-600">
-            The admin panel is optimized for desktop viewing. Please access it from a computer or tablet in landscape mode.
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

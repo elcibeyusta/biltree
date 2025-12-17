@@ -73,7 +73,7 @@ const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-christmas-green text-white font-bold py-3 sm:py-3.5 rounded-xl hover:bg-green-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-green/30 text-sm sm:text-base"
+            className="w-full bg-christmas-green text-white font-bold py-3.5 sm:py-3 rounded-xl hover:bg-green-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-christmas-green/30 text-base sm:text-base"
           >
             {loading ? t('common.loading') : t('common.login')}
           </button>

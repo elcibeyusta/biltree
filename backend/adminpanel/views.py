@@ -49,6 +49,51 @@ def users_list(request):
     return Response(serializer.data)
 
 
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAdminUser])
+def delete_user(request, user_id):
+    """Delete a user (admin only)."""
+    from django.db import transaction
+    
+    try:
+        user = User.objects.get(id=user_id)
+        
+        # Prevent deleting superusers/staff
+        if user.is_superuser or user.is_staff:
+            return Response(
+                {'error': 'Cannot delete superuser or staff accounts'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        with transaction.atomic():
+            # Delete related data
+            # Matches involving this user will be handled by CASCADE or we can delete them explicitly
+            Match.objects.filter(
+                Q(user_a=user) | Q(user_b=user) | Q(user_c=user)
+            ).delete()
+            
+            # Profile will be deleted via CASCADE
+            # Meetings will be deleted via CASCADE
+            
+            # Delete the user
+            user.delete()
+        
+        return Response(
+            {'message': 'User deleted successfully'},
+            status=status.HTTP_200_OK
+        )
+    except User.DoesNotExist:
+        return Response(
+            {'error': 'User not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+        return Response(
+            {'error': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
 @api_view(['GET'])
 @permission_classes([permissions.IsAdminUser])
 def matches_list(request):

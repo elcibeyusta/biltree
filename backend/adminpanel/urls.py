@@ -4,6 +4,7 @@ URLs for admin panel app.
 from django.urls import path
 from .views import (
     users_list,
+    delete_user,
     matches_list,
     meetings_list,
     admin_stats,
@@ -15,6 +16,7 @@ from .views import (
 
 urlpatterns = [
     path('users/', users_list, name='admin_users'),
+    path('users/<int:user_id>/delete/', delete_user, name='admin_delete_user'),
     path('matches/', matches_list, name='admin_matches'),
     path('matches/<int:match_id>/', update_match, name='admin_update_match'),
     path('matches/<int:match_id>/delete/', delete_match, name='admin_delete_match'),
