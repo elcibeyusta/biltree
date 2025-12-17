@@ -199,7 +199,10 @@ EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '30'))
 
 # Security Settings (for production)
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+    # Trust proxy headers (Nginx sets X-Forwarded-Proto)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # Only redirect if not already behind HTTPS proxy
+    # SECURE_SSL_REDIRECT = True  # Disabled - let Nginx handle SSL termination
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
