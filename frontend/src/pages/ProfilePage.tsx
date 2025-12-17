@@ -115,7 +115,7 @@ const ProfilePage: React.FC = () => {
             >
               {DEPARTMENTS.map((dept) => (
                 <option key={dept.value} value={dept.value} className="bg-yildiz-dark">
-                  {dept.label}
+                  {t(dept.labelKey)}
                 </option>
               ))}
             </select>
@@ -133,7 +133,7 @@ const ProfilePage: React.FC = () => {
             >
               {STUDY_LEVELS.map((level) => (
                 <option key={level.value} value={level.value} className="bg-yildiz-dark">
-                  {level.label}
+                  {t(level.labelKey)}
                 </option>
               ))}
             </select>
