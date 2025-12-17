@@ -53,6 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Disable trailing slash redirect for API endpoints (handled by CommonMiddleware)
+APPEND_SLASH = True  # Keep True for admin, but API should handle trailing slashes
+
 ROOT_URLCONF = 'bilkent_secret_gifts.urls'
 
 TEMPLATES = [
@@ -197,20 +200,27 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'noreply@bilkent-secret-gifts.com')
 EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '30'))
 
+# Proxy settings (always set when behind reverse proxy like Nginx)
+# These must be set BEFORE SecurityMiddleware processes requests
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CRITICAL: Disable SSL redirect to prevent redirect loops when behind proxy
+# Nginx handles SSL termination, so Django should never redirect
+SECURE_SSL_REDIRECT = False
+
 # Security Settings (for production)
 if not DEBUG:
-    # Trust proxy headers (Nginx sets X-Forwarded-Proto)
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Only redirect if not already behind HTTPS proxy
-    # SECURE_SSL_REDIRECT = True  # Disabled - let Nginx handle SSL termination
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+    # Disable HSTS since Nginx should handle it
+    SECURE_HSTS_SECONDS = 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_HSTS_PRELOAD = False
 
 # Logging Configuration
 LOGGING = {
