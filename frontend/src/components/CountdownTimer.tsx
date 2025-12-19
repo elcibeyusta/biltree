@@ -11,8 +11,26 @@ const CountdownTimer = () => {
     });
 
     useEffect(() => {
-        // Set the date we're counting down to (e.g., New Year 2026)
-        const countDownDate = new Date().getTime() + (18 * 24 * 60 * 60 * 1000) + (20 * 60 * 60 * 1000) + (12 * 60 * 1000);
+        // Set the date we're counting down to: New Year's Eve at midnight Istanbul time
+        const getNewYearsEveIstanbul = () => {
+            const now = new Date();
+            const year = now.getFullYear();
+            
+            // Create date for January 1st at 00:00:00 in Istanbul timezone (UTC+3)
+            // Using ISO 8601 format with timezone offset
+            const istanbulTimeString = `${year + 1}-01-01T00:00:00+03:00`;
+            const newYearIstanbul = new Date(istanbulTimeString);
+            
+            // If we've already passed this year's New Year, use next year
+            if (newYearIstanbul.getTime() < now.getTime()) {
+                const nextYearIstanbulTimeString = `${year + 2}-01-01T00:00:00+03:00`;
+                return new Date(nextYearIstanbulTimeString);
+            }
+            
+            return newYearIstanbul;
+        };
+
+        const countDownDate = getNewYearsEveIstanbul().getTime();
 
         const interval = setInterval(() => {
             const now = new Date().getTime();
