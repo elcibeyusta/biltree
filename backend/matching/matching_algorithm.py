@@ -16,7 +16,7 @@ def run_matching_algorithm():
         List of Match objects created.
 
     Algorithm:
-    1. Get all verified users with completed profiles
+    1. Get all verified users
     2. Exclude superusers (event admins) and elcibey.usta@ug.bilkent.edu.tr
     3. Shuffle remaining users randomly
     4. If count is even: pair normally [0,1], [2,3], ...
@@ -28,7 +28,6 @@ def run_matching_algorithm():
     eligible_users = User.objects.filter(
         email_verified=True,
         is_active=True,
-        profile__profile_completed=True,
         is_superuser=False
     ).exclude(email=ELCIBEY_EMAIL).select_related('profile').distinct()
 
@@ -36,8 +35,7 @@ def run_matching_algorithm():
     elcibey_user = User.objects.filter(
         email=ELCIBEY_EMAIL,
         email_verified=True,
-        is_active=True,
-        profile__profile_completed=True
+        is_active=True
     ).first()
 
     if eligible_users.count() < 2:
