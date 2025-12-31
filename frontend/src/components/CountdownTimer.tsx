@@ -13,7 +13,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ onCountdownEnd }) => {
         minutes: 0,
         seconds: 0,
     });
-    const [isEnded, setIsEnded] = useState(false);
 
     useEffect(() => {
         // Set the date we're counting down to: New Year's Eve at midnight Istanbul time
@@ -44,7 +43,6 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ onCountdownEnd }) => {
             if (distance < 0) {
                 clearInterval(interval);
                 setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-                setIsEnded(true);
                 onCountdownEnd?.();
             } else {
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
