@@ -100,5 +100,10 @@ export const adminService = {
   deleteUser: async (userId: number): Promise<void> => {
     await api.delete(`/admin/users/${userId}/delete/`);
   },
+
+  sendVerificationEmails: async (): Promise<{ message: string; sent_count: number; total_unverified: number }> => {
+    const response = await api.post('/admin/users/send-verification/');
+    return response.data;
+  },
 };
 

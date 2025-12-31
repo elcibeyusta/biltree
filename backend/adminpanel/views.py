@@ -327,9 +327,77 @@ def update_config(request):
     """Update event configuration."""
     config = EventConfig.get_config()
     serializer = EventConfigSerializer(config, data=request.data, partial=True)
-    
+
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAdminUser])
+def send_verification_emails(request):
+    """Send verification emails to all unverified users."""
+    import os
+    from django.core.mail import send_mail
+    from django.conf import settings
+
+    try:
+        # Get all unverified users
+        unverified_users = User.objects.filter(email_verified=False, is_active=True)
+        count = unverified_users.count()
+
+        if count == 0:
+            return Response(
+                {'message': 'No unverified users found.'},
+                status=status.HTTP_200_OK
+            )
+
+        # Send verification emails
+        frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+        sent_count = 0
+
+        for user in unverified_users:
+            # Generate new token if needed
+            if not user.email_verification_token:
+                import secrets
+                user.email_verification_token = secrets.token_urlsafe(32)
+                user.save()
+
+            verification_url = f"{frontend_url}/verify-email?token={user.email_verification_token}"
+            try:
+                send_mail(
+                    subject='Verify your Biltree account',
+                    message=f'''Hi {user.first_name},
+
+We noticed you haven't verified your email yet. If you want to match with a Bilkenter and exchange gifts this New Year, you need to verify your email!
+
+Click the link below to verify your account:
+{verification_url}
+
+If you didn't create a Biltree account, you can safely ignore this email.
+
+- Biltree Team''',
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
+                sent_count += 1
+            except Exception as e:
+                # Continue with next user if email fails
+                continue
+
+        return Response(
+            {
+                'message': f'Successfully sent {sent_count} verification emails out of {count} unverified users.',
+                'sent_count': sent_count,
+                'total_unverified': count
+            },
+            status=status.HTTP_200_OK
+        )
+    except Exception as e:
+        return Response(
+            {'error': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )

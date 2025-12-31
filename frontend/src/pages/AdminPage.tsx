@@ -118,6 +118,27 @@ const AdminPage: React.FC = () => {
     setEditFormData(null);
   };
 
+  const handleSendVerificationEmails = async () => {
+    const unverifiedCount = users.filter(u => !u.email_verified).length;
+    if (unverifiedCount === 0) {
+      setError('No unverified users found.');
+      return;
+    }
+
+    if (!confirm(`Send verification emails to ${unverifiedCount} unverified users?`)) {
+      return;
+    }
+
+    try {
+      setMessage('');
+      setError('');
+      const result = await adminService.sendVerificationEmails();
+      setMessage(result.message || `Sent ${result.sent_count} verification emails.`);
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Failed to send verification emails');
+    }
+  };
+
   const handleUpdateConfig = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!config) return;
@@ -260,7 +281,18 @@ const AdminPage: React.FC = () => {
           {/* Users Tab */}
           {activeTab === 'users' && (
             <div>
-              <div className="mb-4">
+              <div className="mb-4 flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600">
+                    {users.filter(u => !u.email_verified).length} unverified users
+                  </span>
+                  <button
+                    onClick={handleSendVerificationEmails}
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
+                  >
+                    Send Verification Emails
+                  </button>
+                </div>
                 <input
                   type="text"
                   placeholder={t('admin.users.searchPlaceholder')}

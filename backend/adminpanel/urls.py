@@ -11,12 +11,14 @@ from .views import (
     update_config,
     update_match,
     delete_match,
-    deploy_matches
+    deploy_matches,
+    send_verification_emails
 )
 
 urlpatterns = [
     path('users/', users_list, name='admin_users'),
     path('users/<int:user_id>/delete/', delete_user, name='admin_delete_user'),
+    path('users/send-verification/', send_verification_emails, name='admin_send_verification_emails'),
     path('matches/', matches_list, name='admin_matches'),
     path('matches/<int:match_id>/', update_match, name='admin_update_match'),
     path('matches/<int:match_id>/delete/', delete_match, name='admin_delete_match'),
