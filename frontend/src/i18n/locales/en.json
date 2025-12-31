@@ -61,6 +61,11 @@
         "title": "Fun",
         "desc": "This is a New Year celebration! Have fun, make new friendships, and enjoy the New Year spirit!"
       }
+    },
+    "registrationClosed": {
+      "title": "Registration is Closed!",
+      "message": "Thank you for your interest in Biltree!",
+      "subtitle": "Matching is now underway. Stay tuned for the big reveal!"
     }
   },
   "countdown": {

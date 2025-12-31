@@ -61,6 +61,11 @@
         "title": "Eğlence",
         "desc": "Bu bir yılbaşı kutlaması! Eğlen, yeni arkadaşlıklar kur ve yılbaşı ruhunu yaşa!"
       }
+    },
+    "registrationClosed": {
+      "title": "Kayıtlar Kapandı!",
+      "message": "Biltree'e ilgi gösterdiğiniz için teşekkürler!",
+      "subtitle": "Eşleştirme şimdi başladı. Büyük sürpriz için takipte kalın!"
     }
   },
   "countdown": {

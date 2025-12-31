@@ -11,6 +11,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils import timezone
+from content.models import EventConfig
 from .serializers import (
     UserRegistrationSerializer,
     UserSerializer,
@@ -31,6 +33,16 @@ class RegisterView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         """Create user and send verification email."""
+        # Check if registration is still open
+        config = EventConfig.get_config()
+        now = timezone.now()
+
+        if now > config.registration_close:
+            return Response(
+                {'error': 'Registration is closed. Thank you for your interest!'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()

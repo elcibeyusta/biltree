@@ -11,6 +11,7 @@ const LandingPage = () => {
   const { t } = useTranslation();
   const [participantCount, setParticipantCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRegistrationClosed, setIsRegistrationClosed] = useState(false);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -67,7 +68,7 @@ const LandingPage = () => {
 
         {/* Countdown Timer */}
         <div className="mb-8 sm:mb-12 w-full max-w-2xl px-2 sm:px-4">
-          <CountdownTimer />
+          <CountdownTimer onCountdownEnd={() => setIsRegistrationClosed(true)} />
         </div>
 
         {/* Participant Count */}
@@ -114,13 +115,30 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Join Button */}
-        <button
-          onClick={() => navigate(ROUTES.REGISTER)}
-          className="bg-bilkent-gold text-bilkent-blue px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-lg sm:text-xl hover:bg-yellow-400 transition-all duration-300 shadow-lg shadow-bilkent-gold/30 hover:shadow-bilkent-gold/50 mb-12 sm:mb-16"
-        >
-          {t('common.register')}
-        </button>
+        {/* Join Button / Thank You Message */}
+        {isRegistrationClosed ? (
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="bg-gradient-to-br from-bilkent-blue/20 to-bilkent-blue/5 border-2 border-bilkent-gold/50 rounded-3xl px-8 py-8 sm:px-12 sm:py-10 max-w-2xl mx-auto backdrop-blur-md shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+              <div className="text-5xl sm:text-6xl mb-4">🎉</div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-bilkent-gold mb-4">
+                {t('landing.registrationClosed.title')}
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-200 mb-2">
+                {t('landing.registrationClosed.message')}
+              </p>
+              <p className="text-base sm:text-lg text-bilkent-gold">
+                {t('landing.registrationClosed.subtitle')}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => navigate(ROUTES.REGISTER)}
+            className="bg-bilkent-gold text-bilkent-blue px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-lg sm:text-xl hover:bg-yellow-400 transition-all duration-300 shadow-lg shadow-bilkent-gold/30 hover:shadow-bilkent-gold/50 mb-12 sm:mb-16"
+          >
+            {t('common.register')}
+          </button>
+        )}
       </section>
 
       {/* How It Works Section */}

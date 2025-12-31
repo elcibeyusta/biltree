@@ -139,6 +139,22 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const handleDeleteUser = async (userId: number, userEmail: string) => {
+    if (!confirm(`Are you sure you want to delete user "${userEmail}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      setMessage('');
+      setError('');
+      await adminService.deleteUser(userId);
+      setMessage(`User "${userEmail}" deleted successfully.`);
+      await loadData();
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Failed to delete user');
+    }
+  };
+
   const handleUpdateConfig = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!config) return;
@@ -309,6 +325,7 @@ const AdminPage: React.FC = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.name')}</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.verified')}</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{t('admin.users.created')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -331,6 +348,15 @@ const AdminPage: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {new Date(user.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <button
+                            onClick={() => handleDeleteUser(user.id, user.email)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete user"
+                          >
+                            Delete
+                          </button>
                         </td>
                       </tr>
                     ))}

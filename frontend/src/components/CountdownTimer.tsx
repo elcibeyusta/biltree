@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const CountdownTimer = () => {
+interface CountdownTimerProps {
+    onCountdownEnd?: () => void;
+}
+
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ onCountdownEnd }) => {
     const { t } = useTranslation();
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
@@ -9,6 +13,7 @@ const CountdownTimer = () => {
         minutes: 0,
         seconds: 0,
     });
+    const [isEnded, setIsEnded] = useState(false);
 
     useEffect(() => {
         // Set the date we're counting down to: New Year's Eve at midnight Istanbul time
@@ -39,6 +44,8 @@ const CountdownTimer = () => {
             if (distance < 0) {
                 clearInterval(interval);
                 setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                setIsEnded(true);
+                onCountdownEnd?.();
             } else {
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -110,4 +117,5 @@ const CountdownTimer = () => {
     );
 };
 
+export type { CountdownTimerProps };
 export default CountdownTimer;
