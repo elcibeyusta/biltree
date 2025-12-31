@@ -5,9 +5,34 @@ from django.db import models
 from django.conf import settings
 
 
+class Message(models.Model):
+    """Message between matched users."""
+
+    match = models.ForeignKey(
+        'Match',
+        on_delete=models.CASCADE,
+        related_name='messages'
+    )
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='sent_messages'
+    )
+    content = models.TextField(max_length=2000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'messages'
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f'Message from {self.sender.email} in match {self.match_id}'
+
+
 class Match(models.Model):
     """Match between participants."""
-    
+
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('active', 'Active'),
@@ -35,6 +60,8 @@ class Match(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     notified_at = models.DateTimeField(null=True, blank=True)
+    seen_by_a = models.BooleanField(default=False, help_text='User A has seen the match reveal')
+    seen_by_b = models.BooleanField(default=False, help_text='User B has seen the match reveal')
 
     class Meta:
         db_table = 'matches'
@@ -75,4 +102,20 @@ class Match(models.Model):
             elif user == self.user_c:
                 return self.user_a
         return None
+
+    def has_seen(self, user):
+        """Check if user has seen the match reveal."""
+        if user == self.user_a:
+            return self.seen_by_a
+        elif user == self.user_b:
+            return self.seen_by_b
+        return False
+
+    def mark_as_seen(self, user):
+        """Mark that the user has seen the match reveal."""
+        if user == self.user_a:
+            self.seen_by_a = True
+        elif user == self.user_b:
+            self.seen_by_b = True
+        self.save(update_fields=['seen_by_a', 'seen_by_b'])
 

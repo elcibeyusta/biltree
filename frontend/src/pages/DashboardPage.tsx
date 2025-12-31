@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { matchingService, Match } from '../services/matching';
@@ -8,6 +8,7 @@ import { ROUTES } from '../utils/constants';
 const DashboardPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [match, setMatch] = useState<Match | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +29,11 @@ const DashboardPage: React.FC = () => {
   const loadMatch = async () => {
     try {
       const data = await matchingService.getMyMatch();
+      // Redirect to match reveal if match exists and hasn't been seen
+      if (data && data.partner_profile && !data.seen) {
+        navigate(ROUTES.MATCH_REVEAL, { replace: true });
+        return;
+      }
       setMatch(data);
     } catch (err: any) {
       if (err.response?.status !== 404) {
@@ -90,29 +96,12 @@ const DashboardPage: React.FC = () => {
                     <p className="text-white text-sm sm:text-base">{match.partner_profile.about_text}</p>
                   </div>
                 )}
-                {match.partner_profile.interests.length > 0 && (
-                  <div>
-                    <p className="text-sm sm:text-base text-gray-300 mb-2">
-                      <strong className="text-yildiz-gold">{t('dashboard.partnerInterests')}:</strong>
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {match.partner_profile.interests.map((interest) => (
-                        <span
-                          key={interest.id}
-                          className="bg-yildiz-gold/20 text-yildiz-gold border border-yildiz-gold/30 px-3 py-1 rounded-full text-xs sm:text-sm"
-                        >
-                          {interest.display_name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 <div className="pt-4">
                   <Link
-                    to={ROUTES.MEETING}
+                    to={ROUTES.CHAT}
                     className="inline-block bg-yildiz-gold text-yildiz-dark px-6 py-2.5 rounded-xl hover:bg-yellow-400 transition-colors font-semibold text-sm sm:text-base"
                   >
-                    {t('dashboard.scheduleMeeting')}
+                    Chat with Partner
                   </Link>
                 </div>
               </div>
@@ -136,10 +125,10 @@ const DashboardPage: React.FC = () => {
               {t('dashboard.updateProfile')}
             </Link>
             <Link
-              to={ROUTES.MEETING}
-              className="text-gray-300 hover:text-christmas-red transition-colors text-sm sm:text-base"
+              to={ROUTES.CHAT}
+              className="text-gray-300 hover:text-christmas-green transition-colors text-sm sm:text-base"
             >
-              {t('dashboard.meetingSchedule')}
+              Chat with Partner
             </Link>
           </div>
         </div>

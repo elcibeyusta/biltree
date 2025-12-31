@@ -108,10 +108,10 @@ def matches_list(request):
 def update_match(request, match_id):
     """Update a match (admin only) with automatic user swapping to ensure one match per user."""
     from django.db import transaction
-    
+
     try:
         match = Match.objects.get(id=match_id)
-        
+
         # Determine final state after update (handle partial updates)
         final_user_a_id = request.data.get('user_a', match.user_a_id)
         final_user_b_id = request.data.get('user_b', match.user_b_id)
@@ -120,42 +120,42 @@ def update_match(request, match_id):
             final_user_c_id = None
         elif final_user_c_id is not None:
             final_user_c_id = int(final_user_c_id)
-        
+
         # Current users in this match
         current_users = {match.user_a_id, match.user_b_id}
         if match.user_c_id:
             current_users.add(match.user_c_id)
-        
+
         # Final users after update
         final_users = {int(final_user_a_id), int(final_user_b_id)}
         if final_user_c_id:
             final_users.add(final_user_c_id)
-        
+
         # Users being added to this match (new users)
         users_being_added = final_users - current_users
-        
+
         # Users being removed from this match
         users_being_removed = current_users - final_users
-        
+
         with transaction.atomic():
             # Track which users have been swapped to avoid double-swapping
             swapped_users = set()
-            
+
             # For each user being added to this match, handle their old match
             for user_id in users_being_added:
                 # Find all other matches containing this user (refresh each time to get latest state)
                 old_matches = Match.objects.exclude(id=match_id).filter(
                     Q(user_a_id=user_id) | Q(user_b_id=user_id) | Q(user_c_id=user_id)
                 )
-                
+
                 for old_match in old_matches:
                     # Refresh from DB to get latest state after potential previous swaps
                     old_match.refresh_from_db()
-                    
+
                     # Check if user is still in this match (might have been swapped already)
                     if old_match.user_a_id != user_id and old_match.user_b_id != user_id and old_match.user_c_id != user_id:
                         continue
-                    
+
                     # Determine which field the user is in
                     if old_match.user_a_id == user_id:
                         old_field = 'user_a'
@@ -163,11 +163,11 @@ def update_match(request, match_id):
                         old_field = 'user_b'
                     else:  # user_c
                         old_field = 'user_c'
-                    
+
                     # Try to swap: replace the moved user with a user being removed from current match
                     if users_being_removed and user_id not in swapped_users:
                         swap_user_id = users_being_removed.pop()
-                        
+
                         # Update old match: replace the moved user with the swap user
                         if old_field == 'user_a':
                             old_match.user_a_id = swap_user_id
@@ -193,7 +193,7 @@ def update_match(request, match_id):
                                 remaining_users.append(old_match.user_b_id)
                             if old_match.user_c_id:
                                 remaining_users.append(old_match.user_c_id)
-                            
+
                             if len(remaining_users) < 2:
                                 # Match becomes invalid (need at least 2 users) - delete it
                                 old_match.delete()
@@ -209,16 +209,16 @@ def update_match(request, match_id):
                                 old_match.user_b_id = remaining_users[1]
                                 old_match.user_c_id = remaining_users[2]
                                 old_match.save()
-            
+
             # Now update the current match
             serializer = MatchSerializer(match, data=request.data, partial=True)
-            
+
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
+
     except Match.DoesNotExist:
         return Response(
             {'error': 'Match not found'},

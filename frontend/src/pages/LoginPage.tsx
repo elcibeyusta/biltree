@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
             />
           </div>
 
-          <div className="mb-6 sm:mb-8">
+          <div className="mb-4 sm:mb-6">
             <label className="block text-gray-300 text-sm font-medium mb-2 ml-1">
               {t('auth.password')}
             </label>
@@ -68,6 +68,12 @@ const LoginPage: React.FC = () => {
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
               placeholder="••••••••"
             />
+          </div>
+
+          <div className="mb-6 sm:mb-8 text-right">
+            <Link to={ROUTES.FORGOT_PASSWORD} className="text-gray-400 hover:text-christmas-red transition-colors duration-300 text-xs sm:text-sm">
+              Forgot Password?
+            </Link>
           </div>
 
           <button

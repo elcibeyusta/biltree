@@ -6,7 +6,6 @@ export interface Profile {
   department: string;
   study_level: string;
   about_text: string;
-  interests: Array<{ id: number; slug: string; display_name: string }>;
   profile_completed: boolean;
 }
 

@@ -59,11 +59,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class ProfilePublicSerializer(serializers.ModelSerializer):
     """Public serializer for profile (visible to match partner)."""
-    
-    interests = InterestTagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
-        fields = ['initials', 'department', 'study_level', 'about_text', 'interests']
-        read_only_fields = ['initials', 'department', 'study_level', 'about_text', 'interests']
+        fields = ['initials', 'department', 'study_level', 'about_text']
+        read_only_fields = ['initials', 'department', 'study_level', 'about_text']
 

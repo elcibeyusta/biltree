@@ -77,6 +77,7 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "forgotPassword": "Forgot Password?",
+    "forgotPasswordTitle": "Forgot Password",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "register": "Register",
@@ -85,7 +86,8 @@
     "verifyEmail": "Verify Your Email",
     "verifyEmailMessage": "Please check your email for the verification link.",
     "verifyEmailSuccess": "Email verified successfully! Redirecting to profile...",
-    "verifyEmailError": "Verification failed. Please try again."
+    "verifyEmailError": "Verification failed. Please try again.",
+    "backToLogin": "Back to Login"
   },
   "profile": {
     "title": "Your Profile",

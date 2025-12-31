@@ -77,6 +77,7 @@
     "firstName": "Ad",
     "lastName": "Soyad",
     "forgotPassword": "Şifremi Unuttum?",
+    "forgotPasswordTitle": "Şifremi Unuttum",
     "noAccount": "Hesabınız yok mu?",
     "hasAccount": "Zaten hesabınız var mı?",
     "register": "Kayıt Ol",
@@ -85,7 +86,8 @@
     "verifyEmail": "E-postanızı Doğrulayın",
     "verifyEmailMessage": "Lütfen e-postanızı kontrol edin ve doğrulama bağlantısına tıklayın.",
     "verifyEmailSuccess": "E-posta başarıyla doğrulandı! Profile yönlendiriliyorsunuz...",
-    "verifyEmailError": "Doğrulama başarısız. Lütfen tekrar deneyin."
+    "verifyEmailError": "Doğrulama başarısız. Lütfen tekrar deneyin.",
+    "backToLogin": "Girişe Dön"
   },
   "profile": {
     "title": "Profiliniz",

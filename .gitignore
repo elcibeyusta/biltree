@@ -63,3 +63,4 @@ Thumbs.db
 *.seed
 *.pid.lock
 
+frontend/package.json

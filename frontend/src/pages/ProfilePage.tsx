@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { profileService, Profile, InterestTag } from '../services/profile';
+import { profileService, Profile } from '../services/profile';
 import { DEPARTMENTS, STUDY_LEVELS } from '../utils/constants';
 
 const ProfilePage: React.FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [interests, setInterests] = useState<InterestTag[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
@@ -17,12 +16,8 @@ const ProfilePage: React.FC = () => {
 
   const loadData = async () => {
     try {
-      const [profileData, interestsData] = await Promise.all([
-        profileService.getProfile(),
-        profileService.getInterests(),
-      ]);
+      const profileData = await profileService.getProfile();
       setProfile(profileData);
-      setInterests(interestsData);
     } catch (err) {
       console.error('Error loading profile:', err);
     } finally {
@@ -44,7 +39,6 @@ const ProfilePage: React.FC = () => {
         department: formData.get('department') as string,
         study_level: formData.get('study_level') as string,
         about_text: formData.get('about_text') as string,
-        interests: Array.from(formData.getAll('interests')).map(Number) as any,
       });
       setProfile(updatedProfile);
       setMessage(t('profile.updateSuccess'));
@@ -151,26 +145,6 @@ const ProfilePage: React.FC = () => {
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yildiz-gold/50 focus:border-transparent transition-all duration-300 text-sm sm:text-base resize-none"
               placeholder={t('profile.aboutMePlaceholder')}
             />
-          </div>
-
-          <div className="mb-6 sm:mb-8">
-            <label className="block text-gray-300 text-sm font-medium mb-3">
-              {t('profile.interests')}
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {interests.map((interest) => (
-                <label key={interest.id} className="flex items-center text-sm sm:text-base">
-                  <input
-                    type="checkbox"
-                    name="interests"
-                    value={interest.id}
-                    defaultChecked={profile.interests.some((i) => i.id === interest.id)}
-                    className="mr-2 w-4 h-4 text-yildiz-gold bg-white/5 border-white/10 rounded focus:ring-yildiz-gold/50"
-                  />
-                  <span className="text-gray-300">{interest.display_name}</span>
-                </label>
-              ))}
-            </div>
           </div>
 
           <button
